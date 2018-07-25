@@ -1,0 +1,8 @@
+{
+    "NOT_PERMISSION": "You have no permission to access",
+    "Validation": {
+        "Required": "{0} required",
+        "Unmatched": "{0} unmatched",
+        "Invalid": "{0} invalid"
+    }
+}

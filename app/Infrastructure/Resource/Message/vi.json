@@ -1,0 +1,8 @@
+{
+    "NOT_PERMISSION": "Bạn không có quyền truy cập",
+    "Validation": {
+        "Required": "Chưa nhập {0}",
+        "Unmatched": "{0} chưa đúng",
+        "Invalid": "{0} không hợp lệ"
+    }
+}

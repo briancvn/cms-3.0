@@ -1,0 +1,36 @@
+{
+    "Signin_Title": "Đăng nhập",
+    "Signin_Description": "Đăng nhập vào tài khoản của bạn",
+    "Signup_Title": "Đăng ký",
+    "Signup_Description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Forgot_Password_Text": "Quên mật khẩu?",
+    "Button": {
+        "Signin": "Đăng nhập",
+        "Signout": "Thoát",
+        "Signup": "Đăng ký ngay!",
+        "Cancel": "Thoát",
+        "Next": "Tiếp tục",
+        "RequestCode": "Gửi mã xác thực",
+        "ReSendCode": "Gửi lại mã",
+        "Reset": "Đặt lại mật khẩu",
+        "Modules": "Modules"
+    },
+    "Field": {
+        "Username|Email|Pin": "Tên đăng nhập, email hoặc số pin",
+        "Username": "Tên đăng nhập",
+        "Email": "Email",
+        "Phone": "Điện thoại",
+        "Password": "Mật khẩu",
+        "ConfirmPassword": "Nhập lại mật khẩu",
+        "FirstName": "Tên",
+        "LastName": "Họ",
+        "Birthday": "Ngày sinh",
+        "Gender": "Giới tính"
+    },
+    "Title": {
+        "Header": {
+            "Configuration": "Cấu hình hệ thống",
+            "User": "Quản lý người dùng"
+        }
+    }
+}

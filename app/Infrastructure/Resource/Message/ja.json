@@ -1,0 +1,8 @@
+{
+    "NOT_PERMISSION": "アクセス権がありません",
+    "Validation": {
+        "Required": "{0}は必須です",
+        "Unmatched": "{0}不一致",
+        "Invalid": "{0}は無効です"
+    }
+}

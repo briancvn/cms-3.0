@@ -1,0 +1,36 @@
+{
+    "Signin_Title": "Sign In",
+    "Signin_Description": "Log in to your account",
+    "Signup_Title": "Sign Up",
+    "Signup_Description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Forgot_Password_Text": "Forgot password?",
+    "Button": {
+        "Signin": "Sign In",
+        "Signout": "Sign Out",
+        "Signup": "Register Now!",
+        "Cancel": "Cancel",
+        "Next": "Next",
+        "RequestCode": "Send Code",
+        "ReSendCode": "Resend Code",
+        "Reset": "Reset",
+        "Modules": "Modules"
+    },
+    "Field": {
+        "Username|Email|Pin": "Username, email or pin",
+        "Username": "Username",
+        "Email": "Email",
+        "Phone": "Phone",
+        "Password": "Password",
+        "ConfirmPassword": "Confirm password",
+        "FirstName": "First name",
+        "LastName": "Last name",
+        "Birthday": "Birthday",
+        "Gender": "Gender"
+    },
+    "Title": {
+        "Header": {
+            "Configuration": "System configuration",
+            "User": "Account management"
+        }
+    }
+}

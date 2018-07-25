@@ -1,0 +1,36 @@
+{
+    "Signin_Title": "サインイン",
+    "Signin_Description": "あなたのアカウントにログイン",
+    "Signup_Title": "サインアップ",
+    "Signup_Description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Forgot_Password_Text": "パスワードをお忘れですか？",
+    "Button": {
+        "Signin": "サインイン",
+        "Signout": "サインアウト",
+        "Signup": "今すぐ登録！",
+        "Cancel": "キャンセル",
+        "Next": "次",
+        "RequestCode": "コードを送信する",
+        "ReSendCode": "再送信コード",
+        "Reset": "リセット",
+        "Modules": "モジュール"
+    },
+    "Field": {
+        "Username|Email|Pin": "ユーザー名、電子メールまたはピン",
+        "Username": "ユーザー名",
+        "Email": "Eメール",
+        "Phone": "電話",
+        "Password": "パスワード",
+        "ConfirmPassword": "パスワードを認証する",
+        "FirstName": "ファーストネーム",
+        "LastName": "苗字",
+        "Birthday": "お誕生日",
+        "Gender": "性別"
+    },
+    "Title": {
+        "Header": {
+            "Configuration": "システム構成",
+            "User": "アカウント管理"
+        }
+    }
+}
