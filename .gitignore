@@ -1,4 +1,7 @@
+/tmp
+/web
 /vendor
+/softwares
 .DS_Store
 composer.lock
 .idea
