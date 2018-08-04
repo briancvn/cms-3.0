@@ -2,7 +2,7 @@
 
 try {
     $di = new \Phalcon\Di\FactoryDefault();
-    preg_match('/^\/(\w+)(\/.*)?(\.html)/', $di->get('request')->get('_url'),$matches);
+    preg_match('/^\/(\w+)(\/.*).html$/', $di->get('request')->get('_url'),$matches);
     $module = $matches[1];
     $viewPath = $matches[2];
     $moduleNamespace = 'CMS\\'.$module;
@@ -58,5 +58,5 @@ try {
     $application = new \Phalcon\Mvc\Application($di);
     echo $application->handle()->getContent();
 } catch (Exception $e) {
-     echo "Exception: ", $e->getMessage();
+    echo "Exception: ", $e->getMessage();
 }
