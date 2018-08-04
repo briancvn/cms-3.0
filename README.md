@@ -1,4 +1,4 @@
-# Centralized Management Solutions 2.0
+# Centralized Management Solutions 3.0
 - PHP 7.2.7
 - PHP Phalcon 3.4.0
 - MongoDB 4.0.0
