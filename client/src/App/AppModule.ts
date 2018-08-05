@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { InfrastructureCoreModule } from '../Infrastructure';
-import { AppComponent } from './AppComponent';
+import { APP_COMPONENTS, APP_ENTRY_COMPONENTS } from './Components';
+import { AppComponent } from './Components/AppComponent';
 
 @NgModule({
     imports: [
@@ -10,7 +11,11 @@ import { AppComponent } from './AppComponent';
         InfrastructureCoreModule
     ],
     declarations: [
-        AppComponent
+        AppComponent,
+        ...APP_COMPONENTS
+    ],
+    entryComponents: [
+        ...APP_ENTRY_COMPONENTS
     ],
     providers: [],
     bootstrap: [AppComponent]

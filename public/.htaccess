@@ -7,7 +7,7 @@ AddDefaultCharset UTF-8
     RewriteCond %{REQUEST_URI} !/template/
     RewriteRule !.(js|map|ico|gif|jpg|png|css|woff|woff2|ttf)$ client/index.html [QSA,L]
     RewriteRule (main|polyfills|runtime|styles|fontawesome-webfont|[0-9]+).([a-z0-9.]+).(js|map|ico|gif|jpg|png|css|woff|woff2|ttf)$ client/$1.$2.$3 [QSA,L]
-    RewriteRule favicon.ico$ client/favicon.ico [QSA,L]
+    RewriteRule Assets/favicon.ico$ client/Assets/favicon.ico [QSA,L]
 
     RewriteCond %{REQUEST_URI} /api/
 	RewriteRule ^api/(.*)$ api/index.php?_url=/$1 [QSA,L]

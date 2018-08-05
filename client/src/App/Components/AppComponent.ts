@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { BaseComponent } from '../Infrastructure';
+import { BaseComponent } from '../../Infrastructure';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app',
   templateUrl: 'Template/Infrastructure/AppComponent.html',
-  styleUrls: ['Styles/AppComponent.scss']
+  styleUrls: ['Styles/Infrastructure/AppComponent.scss']
 })
 export class AppComponent extends BaseComponent { }

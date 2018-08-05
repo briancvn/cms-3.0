@@ -16,7 +16,7 @@ function reverseHandler(startPath) {
         var filename = path.join(startPath, name);
         var stat = fs.lstatSync(filename);
         if (stat.isDirectory()){
-            generateHtml(filename);
+            reverseHandler(filename);
         } else {
             var match = filename.match(/(.*).bk/);
             if (match) {
