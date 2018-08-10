@@ -13,8 +13,8 @@ class Bootstrap
 
     public function run(...$args)
     {
-        foreach ($this->_executables as $executable) {
-            call_user_func_array([$executable, 'run'], $args);
-        }
+        array_map(function (BootstrapInterface $executable = null) use ($args) {
+            array_map([$executable, 'run'], $args);
+        }, $this->_executables);
     }
 }
