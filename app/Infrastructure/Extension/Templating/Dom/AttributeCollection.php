@@ -2,49 +2,50 @@
 
 namespace CMS\Infrastructure\Extension\Templating\Dom;
 
+use CMS\Infrastructure\Common\AbstractClass;
 use CMS\Infrastructure\Extension\Templating\IString;
 
-class AttributeCollection
+class AttributeCollection extends AbstractClass
 {
     private $attributes = array();
 
-    public function add(AttributeKey $name, IString $value): AttributeCollection
+    protected function add(AttributeKey $name, IString $value): AttributeCollection
     {
-        $this->attributes[$name] = $value;
+        $this->attributes[$name->toString()] = $value->toString();
         return $this;
     }
 
-    public function addPlain(string $name, IString $value): AttributeCollection
+    protected function addPlain(AttributeName $name, IString $value): AttributeCollection
     {
         $this->attributes[$this->getAttribute($name, BindingType::Plain())] = $value->toString();
         return $this;
     }
 
-    public function addInputBinding(AttributeName $name, IString $value): AttributeCollection
+    protected function addInputBinding(AttributeName $name, IString $value): AttributeCollection
     {
         $this->attributes[$this->getAttribute($name, BindingType::Input())] = $value->toString();
         return $this;
     }
 
-    public function addOutputBinding(AttributeName $name, IString $value): AttributeCollection
+    protected function addOutputBinding(AttributeName $name, IString $value): AttributeCollection
     {
         $this->attributes[$this->getAttribute($name, BindingType::Output())] = $value->toString();
         return $this;
     }
 
-    public function addTwoWayBinding(AttributeName $name, IString $value): AttributeCollection
+    protected function addTwoWayBinding(AttributeName $name, IString $value): AttributeCollection
     {
         $this->attributes[$this->getAttribute($name, BindingType::TwoWay())] = $value->toString();
         return $this;
     }
 
-    public function addStructuralBinding(AttributeName $name, IString $value): AttributeCollection
+    protected function addStructuralBinding(AttributeName $name, IString $value): AttributeCollection
     {
         $this->attributes[$this->getAttribute($name, BindingType::Structural())] = $value->toString();
         return $this;
     }
 
-    public function addTemplateRef(AttributeName $name, IString $value): AttributeCollection
+    protected function addTemplateRef(AttributeName $name, IString $value): AttributeCollection
     {
         $this->attributes[$this->getAttribute($name, BindingType::TemplateRef())] = $value->toString();
         return $this;
@@ -65,8 +66,8 @@ class AttributeCollection
         return $this->attributes;
     }
 
-    private function getAttribute(string $name, BindingType $bindingType): string
+    private function getAttribute(AttributeName $name, BindingType $bindingType): string
     {
-        return (new AttributeName($name))->withBinding($bindingType)->toString();
+        return $name->withBinding($bindingType)->toString();
     }
 }

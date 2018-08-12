@@ -2,7 +2,9 @@
 
 namespace CMS\Infrastructure\Extension\Templating;
 
-class RawString implements IString
+use CMS\Infrastructure\Common\AbstractClass;
+
+class RawString extends AbstractClass implements IString
 {
     /** @var string */
     protected $value;

@@ -3,6 +3,7 @@
 namespace CMS\Infrastructure\Extension\Templating\Dom;
 
 use CMS\Infrastructure\Extension\Templating\TagBuilder;
+use Comsolit\HTMLBuilder\TextTag;
 
 class LeafElement implements INode
 {
@@ -34,7 +35,10 @@ class LeafElement implements INode
     }
 
     public function createBuilder(): TagBuilder {
-        $builder = new TagBuilder($this->name, $this->content);
+        $builder = new TagBuilder($this->name);
+        if (!empty($this->content)) {
+            $builder->addChild(new TextTag($this->content));
+        }
         if ($this->selfClosing) {
             $builder->setVoid();
         }
