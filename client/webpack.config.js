@@ -40,7 +40,14 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['css-loader', 'postcss-loader'],
+                use: extractPlugin.extract({  
+                    fallback: "style-loader",
+                    use: [
+                        { loader: 'css-loader', options: { importLoaders: 2, sourceMap: true }},
+                        { loader: 'postcss-loader', options: { config: { path: './postcss.config.js' }, sourceMap: true }},
+                        { loader: 'sass-loader', options: { sourceMap: true }}
+                    ]
+                }) 
             },
             {
                 test: /\.scss$/,
