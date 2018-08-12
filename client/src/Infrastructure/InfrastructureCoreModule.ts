@@ -3,6 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Type } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 import { INFRASTRUCTURE_COMPONENTS } from './Components';
@@ -10,7 +12,11 @@ import { INFRASTRUCTURE_MODALS_COMPONENTS } from './Components/Modals';
 import { INFRASTRUCTURE_DIRECTIVES } from './Directives';
 import { INFRASTRUCTURE_PIPES } from './Pipes';
 
-const MATERIAL_CORE_MODULES = [];
+const MATERIAL_CORE_MODULES = [
+    BrowserAnimationsModule,
+    NoopAnimationsModule,
+    MatIconModule
+];
 
 const INFRASTRUCTURE_EXTERNAL_MODULES = [
     ...MATERIAL_CORE_MODULES,

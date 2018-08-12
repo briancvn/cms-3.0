@@ -78,8 +78,7 @@ module.exports = {
         new ForkTsCheckerNotifierWebpackPlugin({ excludeWarnings: true }),
         new HtmlWebpackPlugin({
             template: 'src/index.html',
-            inject: 'body',
-            title: 'CMS-Development'
+            inject: 'body'
         }),
         new CopyWebpackPlugin([ { from: 'src/Assets', to: 'Assets' } ]),
         new webpack.ContextReplacementPlugin(

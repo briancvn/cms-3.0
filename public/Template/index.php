@@ -8,8 +8,12 @@ try {
     $moduleNamespace = 'CMS\\'.$module;
 
     define("ROOT_DIR", __DIR__.'/../..');
+    define("VENDOR_DIR", ROOT_DIR.'/vendor');
     define("APP_DIR", ROOT_DIR.'/app');
     define("MODULE_DIR", ROOT_DIR.'/app/'.$module);
+
+    $autoLoader = require_once VENDOR_DIR.'/autoload.php';
+    Doctrine\Common\Annotations\AnnotationRegistry::registerLoader([$autoLoader, 'loadClass']);
 
     $loader = new \Phalcon\Loader();
     $loader->registerNamespaces(['CMS' => APP_DIR.'/'])
@@ -28,6 +32,9 @@ try {
                     'compileAlways' => true
                 ));
                 $compiler = $volt->getCompiler();
+                $compiler->addFunction('tag', function ($tag) {
+                    return $tag.'->render()';
+                });
                 return $volt;
             }
         ));
@@ -37,6 +44,13 @@ try {
         ]);
         $view->pick($viewPath);
         return $view;
+    });
+
+    $di->setShared('form', function () {
+        return new CMS\Infrastructure\Extension\Templating\Control\Form();
+    });
+    $di->setShared('indicator', function () {
+        return new CMS\Infrastructure\Extension\Templating\Control\Indicator();
     });
 
     $di->setShared('router', function () use ($module, $moduleNamespace) {

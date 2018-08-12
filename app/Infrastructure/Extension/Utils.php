@@ -86,4 +86,21 @@ class Utils
         }
         return $value;
     }
+
+    public static function escapeJavascriptString($str): string{
+        // if php supports json_encode, use it (support utf-8)
+        if (function_exists('json_encode')) {
+            return json_encode($str);
+        }
+        // php 5.1 or lower not support json_encode, so use str_replace and addcslashes
+        // remove carriage return
+        $str = str_replace("\r", '', (string) $str);
+        // escape all characters with ASCII code between 0 and 31
+        $str = addcslashes($str, "\0..\37'\\");
+        // escape double quotes
+        $str = str_replace('"', '\"', $str);
+        // replace \n with double quotes
+        $str = str_replace("\n", '\n', $str);
+        return "'{$str}'";
+    }
 }

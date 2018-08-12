@@ -2,7 +2,6 @@
 
 namespace CMS\Bootstraps;
 
-
 use CMS\BootstrapInterface;
 use CMS\Infrastructure\Extension\Api;
 use CMS\Infrastructure\Extension\Mapper\Manager as MapperManager;
