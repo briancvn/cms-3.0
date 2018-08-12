@@ -41,8 +41,5 @@
         "suppressUpdateNotice": false,
         "suppressWelcomeNotice": true
     },
-    "php.validate.executablePath": "E:/Servers/xampp/php/php.exe",
-    "php.executablePath": "E:/Servers/xampp/php/php.exe",
-    "php.validate.run": "onType",
     "git.ignoreLimitWarning": true
 }
