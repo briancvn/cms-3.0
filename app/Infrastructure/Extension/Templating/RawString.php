@@ -7,7 +7,7 @@ use CMS\Infrastructure\Common\AbstractClass;
 class RawString extends AbstractClass implements IString
 {
     /** @var string */
-    protected $value;
+    public $value;
 
     public function __construct(string $value) {
         $this->value = $value;

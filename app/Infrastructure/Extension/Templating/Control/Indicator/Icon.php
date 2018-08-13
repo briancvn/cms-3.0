@@ -2,32 +2,34 @@
 namespace CMS\Infrastructure\Extension\Templating\Control\Indicator;
 
 use CMS\Infrastructure\Extension\Templating\AngularExpression;
+use CMS\Infrastructure\Extension\Templating\Behavior\AttributeBehavior;
 use CMS\Infrastructure\Extension\Templating\Control\Control;
+use CMS\Infrastructure\Extension\Templating\RawString;
 
 class Icon extends Control
 {
-    /** @var string */
+    /** @var RawString */
     private $iconName;
 
-    /** @var string */
+    /** @var AngularExpression */
     private $svgIcon;
 
     public function __construct(string $iconName = null) {
         parent::__construct('mat-icon');
-        $this->iconName = $iconName;
-        return $this;
-    }
-
-    public function svgIcon(string $svgIcon): Icon {
-        $this->svgIcon = $svgIcon;
+        $this->iconName = empty($iconName) ? null : new RawString($iconName);
         return $this;
     }
 
     protected function beforeBehaviors() {
-        if (!empty($this->iconName)) {
-            $this->tag->addContent($this->iconName);
+        if (!is_null($this->iconName)) {
+            $this->addContent($this->iconName);
         } if (!empty($this->svgIcon)) {
-            $this->tag->attributes->addPlain('svgIcon', new AngularExpression($this->svgIcon));
+            $this->behaviors->add(AttributeBehavior::Plain('svgIcon', $this->svgIcon));
         }
+    }
+
+    protected function svgIcon(AngularExpression $svgIcon): Icon {
+        $this->svgIcon = $svgIcon;
+        return $this;
     }
 }

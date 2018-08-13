@@ -10,10 +10,10 @@ class BehaviorItem
     /** @var int */
     public $order;
 
-    /** @var boolean */
+    /** @var bool */
     public $default;
 
-    public function __construct(IBehavior $behavior, int $order, boolean $default) {
+    public function __construct(IBehavior $behavior, int $order, bool $default = false) {
         $this->behavior = $behavior;
         $this->order = $order;
         $this->default = $default;

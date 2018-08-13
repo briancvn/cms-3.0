@@ -1,13 +1,15 @@
 <?php
 namespace CMS\Infrastructure\Extension\Templating\Control;
 
+use CMS\Infrastructure\Common\AbstractClass;
 use CMS\Infrastructure\Extension\Templating\Behavior\BehaviorSet;
 use CMS\Infrastructure\Extension\Templating\Behavior\IBehavior;
 use CMS\Infrastructure\Extension\Templating\Dom\INode;
 use CMS\Infrastructure\Extension\Templating\Dom\Element;
 use CMS\Infrastructure\Extension\Templating\Dom\INodeContainer;
+use CMS\Infrastructure\Extension\Templating\IString;
 
-abstract class Control implements INode, IComposite
+abstract class Control extends AbstractClass implements INode, IComposite
 {
     /** @var BehaviorSet */
     protected $behaviors;
@@ -27,11 +29,16 @@ abstract class Control implements INode, IComposite
         return $this->tag->render();
     }
 
-    protected function beforeBehaviors() { }
-    protected function afterBehaviors() { }
+    public function addContent(IString $content)
+    {
+        $this->tag->addContent($content->toString());
+    }
 
     public function addBehavior(IBehavior $behavior)
     {
         $this->behaviors->add($behavior);
     }
+
+    protected function beforeBehaviors() { }
+    protected function afterBehaviors() { }
 }

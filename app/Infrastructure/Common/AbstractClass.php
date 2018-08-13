@@ -26,4 +26,20 @@ abstract class AbstractClass
         }
         return call_user_func_array([$this, $name], $arguments);
     }
+
+    public static function __callStatic($name, $arguments)
+    {
+        $reflectMethod = new \ReflectionMethod(get_called_class(), $name);
+        foreach ($reflectMethod->getParameters() as $index => $param) {
+            if (!$param->getClass() || $param->getClass()->isInterface()) {
+                continue;
+            }
+            $paramType = $param->getType()->getName();
+            $argumentType = is_object($arguments[$index]) ? get_class($arguments[$index]) : null;
+            if ($argumentType !== $paramType) {
+                $arguments[$index] = new $paramType($arguments[$index]);
+            }
+        }
+        return forward_static_call_array([get_called_class(), $name], $arguments);
+    }
 }

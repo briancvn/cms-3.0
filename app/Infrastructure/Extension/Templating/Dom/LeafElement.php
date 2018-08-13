@@ -42,7 +42,7 @@ class LeafElement implements INode
         if ($this->selfClosing) {
             $builder->setVoid();
         }
-        $builder->MergeAttributes($this->attributes->toArray());
+        $builder->mergeAttributes($this->attributes->toArray());
         if (!$this->classes->isEmpty())
         {
             $builder->addClass($this->classes->toString());
