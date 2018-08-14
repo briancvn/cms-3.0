@@ -13,7 +13,7 @@ class AngularPipeExpression implements IAngularExpression
     /** @var array */
     private $pipeArguments;
 
-    public function __construct(string $expression, string $pipe, array $pipeArguments = array()) {
+    public function __construct(string $expression, string $pipe, ...$pipeArguments) {
         $this->expression = new AngularExpression($expression);
         $this->pipe = $pipe;
         $this->pipeArguments = $pipeArguments;
