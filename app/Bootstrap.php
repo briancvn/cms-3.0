@@ -14,7 +14,7 @@ class Bootstrap
     public function run(...$args)
     {
         array_map(function (BootstrapInterface $executable = null) use ($args) {
-            array_map([$executable, 'run'], $args);
+            call_user_func_array([$executable, 'run'], $args);
         }, $this->_executables);
     }
 }
