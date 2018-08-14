@@ -1,5 +1,4 @@
 {
-    "terminal.integrated.shell.windows": "C:\\WINDOWS\\Sysnative\\cmd.exe",
     "editor.minimap.enabled": false,
     "vsicons.projectDetection.disableDetect": true,
     "path-intellisense.extensionOnImport": true,

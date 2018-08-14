@@ -1,8 +1,7 @@
 <?php
 
 try {
-    $di = new \Phalcon\Di\FactoryDefault();
-    preg_match('/^\/(\w+)(\/.*).html$/', $di->get('request')->get('_url'),$matches);
+    preg_match('/^\/(\w+)(\/.*).html$/', $_REQUEST['_url'],$matches);
     $module = $matches[1];
     $viewPath = $matches[2];
     $moduleNamespace = 'CMS\\'.$module;
@@ -20,6 +19,7 @@ try {
         ->registerClasses([$moduleNamespace.'\\Controller\\TemplateController' => MODULE_DIR.'/Controller/TemplateController.php'])
         ->register();
 
+    $di = new \Phalcon\Di\FactoryDefault();
     $di->set('view', function() use ($di, $viewPath) {
         $view = new \Phalcon\Mvc\View();
         $view->setViewsDir(MODULE_DIR.'/View');
