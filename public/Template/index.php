@@ -1,5 +1,10 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
+/** @var \PhalconRest\Api $app */
+$app = null;
+
+session_start();
 try {
     preg_match('/^\/(\w+)(\/.*).html$/', $_REQUEST['_url'],$matches);
     $module = $matches[1];
@@ -69,8 +74,8 @@ try {
         return $url;
     });
 
-    $application = new \Phalcon\Mvc\Application($di);
-    echo $application->handle()->getContent();
+    $app = new \Phalcon\Mvc\Application($di);
+    echo $app->handle()->getContent();
 } catch (Exception $e) {
     echo "Exception: ", $e->getMessage();
 }
