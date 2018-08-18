@@ -9,7 +9,7 @@ use CMS\Infrastructure\Constant\Services;
 
 class RepositoryBootstrap implements BootstrapInterface
 {
-    public function run(Api $api, \Phalcon\DiInterface $di, \Phalcon\Config $config)
+    public function run(\Phalcon\DiInterface $di, \Phalcon\Config $config, Api $api = null)
     {
         foreach (Utils::scanNamespaces(DOMAIN_NAMESPACE, DOMAIN_DIR) as $domain) {
             $arguments = [];

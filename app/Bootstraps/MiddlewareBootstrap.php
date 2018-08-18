@@ -11,7 +11,7 @@ use CMS\Infrastructure\Extension\Middleware\AuthenticationMiddleware;
 
 class MiddlewareBootstrap implements BootstrapInterface
 {
-    public function run(Api $api, \Phalcon\DiInterface $di, \Phalcon\Config $config)
+    public function run(\Phalcon\DiInterface $di, \Phalcon\Config $config, Api $api = null)
     {
         $api->attach(new CorsMiddleware($config->cors->allowedOrigins->toArray()))
             ->attach(new DataTransferMiddleware)

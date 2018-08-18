@@ -12,7 +12,7 @@ use CMS\Infrastructure\Controller\ApiController;
 
 class ControllerBootstrap implements BootstrapInterface
 {
-    public function run(Api $api, \Phalcon\DiInterface $di, \Phalcon\Config $config)
+    public function run(\Phalcon\DiInterface $di, \Phalcon\Config $config, Api $api = null)
     {
         foreach (Utils::scanNamespaces(CONTROLLER_NAMESPACE, CONTROLLER_DIR) as $ctrlName) {
             $arguments = [];

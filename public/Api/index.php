@@ -48,13 +48,10 @@ try {
     $loader->registerNamespaces(['CMS' => APP_DIR.'/'])
         ->register();
 
-    // Configs
-    $configPath = INFRASTRUCTURE_DIR.'/Config/default.php';
-
+    $configPath = APP_DIR.'/Config/default.php';
     if (!is_readable($configPath)) {
         throw new Exception('Unable to read config from '.$configPath);
     }
-
     $config = new Phalcon\Config(include_once $configPath);
 
     $envConfigPath = CONFIG_DIR.'/server.'.APPLICATION_ENV.'.php';
@@ -77,7 +74,7 @@ try {
         new CMS\Bootstraps\ControllerBootstrap,
         new CMS\Bootstraps\RouterBootstrap
     );
-    $bootstrap->run($app, $di, $config);
+    $bootstrap->run($di, $config, $app);
 
     $app->handle();
 

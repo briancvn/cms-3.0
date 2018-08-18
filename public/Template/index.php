@@ -11,10 +11,15 @@ try {
     $viewPath = $matches[2];
     $moduleNamespace = 'CMS\\'.$module;
 
-    define("ROOT_DIR", __DIR__.'/../..');
-    define("VENDOR_DIR", ROOT_DIR.'/vendor');
-    define("APP_DIR", ROOT_DIR.'/app');
-    define("MODULE_DIR", ROOT_DIR.'/app/'.$module);
+    define('ROOT_DIR', __DIR__.'/../..');
+    define('VENDOR_DIR', ROOT_DIR.'/vendor');
+    define('APP_DIR', ROOT_DIR.'/app');
+    define('MODULE_DIR', ROOT_DIR.'/app/'.$module);
+    define('VIEW_DIR', MODULE_DIR.'/View');
+    define('CACHE_DIR', MODULE_DIR.'/Cache/');
+
+    define('VIEW_PATH', $viewPath);
+    define('MODULE_NAME', $moduleNamespace);
 
     $autoLoader = require_once VENDOR_DIR.'/autoload.php';
     Doctrine\Common\Annotations\AnnotationRegistry::registerLoader([$autoLoader, 'loadClass']);
@@ -24,57 +29,21 @@ try {
         ->registerClasses([$moduleNamespace.'\\Controller\\TemplateController' => MODULE_DIR.'/Controller/TemplateController.php'])
         ->register();
 
+    $configPath = APP_DIR.'/Config/default.php';
+    if (!is_readable($configPath)) {
+        throw new Exception('Unable to read config from '.$configPath);
+    }
+
+    $config = new Phalcon\Config(include_once $configPath);
     $di = new \Phalcon\Di\FactoryDefault();
-    $di->set('view', function() use ($di, $viewPath) {
-        $view = new \Phalcon\Mvc\View();
-        $view->setViewsDir(MODULE_DIR.'/View');
-        $view->registerEngines(array(
-            '.phtml' => function($view, $di) {
-                $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
-                $volt->setOptions(array(
-                    'compiledPath'  => MODULE_DIR.'/Cache/',
-                    'stat'          => true,
-                    'compileAlways' => true
-                ));
-                $compiler = $volt->getCompiler();
-                $compiler->addFunction('tag', function ($tag) {
-                    return $tag.'->render()';
-                });
-                return $volt;
-            }
-        ));
-        $view->disableLevel([
-            \Phalcon\Mvc\View::LEVEL_LAYOUT      => true,
-            \Phalcon\Mvc\View::LEVEL_MAIN_LAYOUT => true,
-        ]);
-        $view->pick($viewPath);
-        return $view;
-    });
-
-    $di->setShared('form', function () {
-        return new CMS\Infrastructure\Extension\Templating\Control\Form();
-    });
-    $di->setShared('indicator', function () {
-        return new CMS\Infrastructure\Extension\Templating\Control\Indicator();
-    });
-
-    $di->setShared('router', function () use ($module, $moduleNamespace) {
-        $router = new \Phalcon\Mvc\Router(false);
-        $router->setDefaults([
-            'controller' => "template",
-            'namespace'  => $moduleNamespace.'\\Controller',
-            "action"     => "index"
-        ]);
-        return $router;
-    });
-
-    $di->set('url', function(){
-        $url = new \Phalcon\Mvc\Url();
-        $url->setBaseUri('/');
-        return $url;
-    });
-
     $app = new \Phalcon\Mvc\Application($di);
+
+    $bootstrap = new CMS\Bootstrap(
+        new CMS\Bootstraps\TemplateBootstrap,
+        new CMS\Bootstraps\ControlBootstrap
+    );
+    $bootstrap->run($di, $config);
+
     echo $app->handle()->getContent();
 } catch (Exception $e) {
     echo "Exception: ", $e->getMessage();

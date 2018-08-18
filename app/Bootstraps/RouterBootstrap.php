@@ -8,7 +8,7 @@ use CMS\Infrastructure\Extension\Api;
 
 class RouterBootstrap implements BootstrapInterface
 {
-    public function run(Api $api, \Phalcon\DiInterface $di, \Phalcon\Config $config)
+    public function run(\Phalcon\DiInterface $di, \Phalcon\Config $config, Api $api = null)
     {
         // Create the micro route annotation object, passing the micro app into the constructor
         $route = new Route($api, $di);

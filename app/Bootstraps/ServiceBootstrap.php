@@ -10,7 +10,7 @@ use CMS\Infrastructure\Extension\Mapper\Manager as MapperManager;
 
 class ServiceBootstrap implements BootstrapInterface
 {
-    public function run(Api $api, \Phalcon\DiInterface $di, \Phalcon\Config $config)
+    public function run(\Phalcon\DiInterface $di, \Phalcon\Config $config, Api $api = null)
     {
         foreach (Utils::scanNamespaces(SERVICE_NAMESPACE, SERVICE_DIR) as $serviceName) {
             $arguments = [];
