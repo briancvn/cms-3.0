@@ -7,11 +7,10 @@ class Fragment implements INode, INodeContainer
     public $children = array();
 
     public function render(): string {
-        $fragment = '';
-        foreach ($this->children as $node) {
+        return array_reduce($this->children, function($fragment, $node) {
             $fragment .= $node->render();
-        }
-        return $fragment;
+            return $fragment;
+        }, '');
     }
 
     public function count(): int

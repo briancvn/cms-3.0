@@ -8,13 +8,7 @@ use Comsolit\HTMLBuilder\TextTag;
 class LeafElement implements INode
 {
     /** @var string */
-    protected $name;
-
-    /** @var string */
-    protected $content;
-
-    /** @var boolean */
-    protected $selfClosing;
+    public $innerHTML;
 
     /** @var ClassSet */
     public $classes;
@@ -22,11 +16,22 @@ class LeafElement implements INode
     /** @var AttributeCollection */
     public $attributes;
 
-    public function __construct(string $name, $selfClosing = false) {
+    /** @var boolean */
+    protected $selfClosing = false;
+
+    /** @var string */
+    protected $name;
+
+    public function __construct(string $name, $buildAction = null) {
         $this->name = $name;
-        $this->selfClosing = $selfClosing;
         $this->classes = new ClassSet();
         $this->attributes = new AttributeCollection();
+        $this->build($this, $buildAction);
+    }
+
+    public function selfClosing($selfClosing = true)
+    {
+        $this->selfClosing = $selfClosing;
     }
 
     public function render(): string
@@ -36,8 +41,9 @@ class LeafElement implements INode
 
     public function createBuilder(): TagBuilder {
         $builder = new TagBuilder($this->name);
-        if (!empty($this->content)) {
-            $builder->addChild(new TextTag($this->content));
+        if (!empty($this->innerHTML)) {
+            $builder->addChild(new TextTag($this->innerHTML));
+            $this->selfClosing = false;
         }
         if ($this->selfClosing) {
             $builder->setVoid();
@@ -48,5 +54,13 @@ class LeafElement implements INode
             $builder->addClass($this->classes->toString());
         }
         return $builder;
+    }
+
+    protected function build($node, $buildAction)
+    {
+        if (!is_null($buildAction)) {
+            $buildAction($node);
+        }
+        return $node;
     }
 }

@@ -22,9 +22,9 @@ class Icon extends Control
 
     protected function beforeBehaviors() {
         if (!is_null($this->iconName)) {
-            $this->addContent($this->iconName);
-        } if (!empty($this->svgIcon)) {
-            $this->behaviors->add(AttributeBehavior::Plain('svgIcon', $this->svgIcon));
+            $this->innerHTML($this->iconName);
+        } else if (!empty($this->svgIcon)) {
+            $this->addBehavior(AttributeBehavior::Plain('svgIcon', $this->svgIcon));
         }
     }
 

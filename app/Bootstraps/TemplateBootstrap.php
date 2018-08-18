@@ -24,6 +24,9 @@ class TemplateBootstrap implements BootstrapInterface
                     $compiler->addFunction('tag', function ($tag) {
                         return $tag.'->render()';
                     });
+//                    $compiler->addFunction('partial', function ($viewPath) use($compiler) {
+//                        return sprintf('"%s"', $compiler->compile(VIEW_DIR.'/'.str_replace('\'', '', $viewPath).'.phtml'));
+//                    });
                     return $volt;
                 }
             ));

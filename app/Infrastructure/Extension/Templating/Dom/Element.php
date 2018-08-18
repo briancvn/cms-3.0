@@ -2,24 +2,21 @@
 
 namespace CMS\Infrastructure\Extension\Templating\Dom;
 
+use CMS\Infrastructure\Extension\Templating\TagBuilder;
+
 class Element extends LeafElement implements INodeContainer
 {
     /** @var Fragment */
     private $container;
 
-    public function __construct(string $name, $selfClosing = false) {
-        parent::__construct($name, $selfClosing);
+    public function __construct(string $name, $buildAction = null) {
+        parent::__construct($name, $buildAction);
+        $this->container = new Fragment();
     }
 
     public function count(): int
     {
         return $this->container->count();
-    }
-
-    public function addContent(string $content)
-    {
-        $this->selfClosing = false;
-        $this->content = $content;
     }
 
     public function addChild(Index $index, INode $child)
@@ -32,23 +29,17 @@ class Element extends LeafElement implements INodeContainer
         $this->container->removeChild($index);
     }
 
-    public function createElement(string $name, Index $index = null, $buildAction = null): Element
+    public function createElement(string $name, $buildAction = null): Element
     {
-        $element = new Element($name, $this->selfClosing);
-        $this->addChild($index || Index::End(), $element);
+        $element = new Element($name, $buildAction);
+        $this->addChild(Index::End(), $element);
         return $element;
     }
 
-    public function createLeaf(string $name, Index $index = null, $buildAction = null): LeafElement
-    {
-        $element = new LeafElement($name, $this->selfClosing);
-        $this->addChild($index || Index::End(), $element);
-        return $element;
-    }
-
-    public function build(TNode $node, $buildAction): TNode
-    {
-        $buildAction($node);
-        return $node;
+    public function createBuilder(): TagBuilder {
+        if ($this->container->count() > 0) {
+            $this->innerHTML = $this->container->render();
+        }
+        return parent::createBuilder();
     }
 }

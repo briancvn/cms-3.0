@@ -1,4 +1,6 @@
 export class CommonConstants {
+    public static EMPTY = '';
+
     public static DEFAULT_LANGUAGE = 'vi';
     public static PAGE_SIZE = 2;
 

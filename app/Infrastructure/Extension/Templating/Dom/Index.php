@@ -15,18 +15,18 @@ class Index
         $this->index = $index;
     }
 
-    public function insert(array $list, $item) {
+    public function insert(array &$list, $item) {
         $list[$this->absolute($list)] = $item;
     }
 
-    public function remove(array $list) {
+    public function remove(array &$list) {
         unset($list[$this->absolute($list)]);
     }
 
-    public function absolute(array $list): int {
+    public function absolute(array &$list): int {
         return $this->root === IndexRoot::Start
             ? $this->index
-            : count($list) - 1;
+            : count($list) - $this->index;
     }
 
     public static function Start(): Index

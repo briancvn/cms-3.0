@@ -17,9 +17,9 @@ abstract class Control extends AbstractClass implements INode, IComposite
     /** @var Element */
     public $tag;
 
-    public function __construct(string $tagName, $selfClosing = false) {
+    public function __construct(string $tagName) {
         $this->behaviors = new BehaviorSet();
-        $this->tag = new Element($tagName, $selfClosing);
+        $this->tag = new Element($tagName, null);
     }
 
     public function render(): string {
@@ -29,14 +29,21 @@ abstract class Control extends AbstractClass implements INode, IComposite
         return $this->tag->render();
     }
 
-    public function addContent(IString $content)
+    public function innerHTML(IString $innerHTML)
     {
-        $this->tag->addContent($content->toString());
+        $this->tag->innerHTML = $innerHTML->toString();
     }
 
     public function addBehavior(IBehavior $behavior)
     {
         $this->behaviors->add($behavior);
+    }
+
+    public function addBehaviorIf(bool $condition, IBehavior $behavior)
+    {
+        if ($condition) {
+            $this->behaviors->add($behavior);
+        }
     }
 
     protected function beforeBehaviors() { }
