@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Type } from '@angular/core';
@@ -17,6 +18,7 @@ import { INFRASTRUCTURE_PIPES } from './Pipes';
 const MATERIAL_CORE_MODULES = [
     BrowserAnimationsModule,
     NoopAnimationsModule,
+    A11yModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule

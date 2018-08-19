@@ -7,4 +7,4 @@ import { BaseComponent } from '../../Infrastructure';
     templateUrl: 'Template/Infrastructure/AppComponent.html',
     styleUrls: ['Styles/Infrastructure/AppComponent.scss']
 })
-export class AppComponent extends BaseComponent { }
+export class AppComponent extends BaseComponent {}
