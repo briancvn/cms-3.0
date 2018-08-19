@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const APP_DIR = 'src/App';
-const HTML_DIR = 'src/Assets/';
+const SCSS_DIR = 'src/';
 const HOST = 'http://dev.cms.com/cms/';
 
 console.log('START GENERATE');
@@ -69,7 +69,7 @@ function loadScssFiles(startPath, filePathArr) {
         var styleUrl = match && match[1];
         var styleFileName = match && match[2];
         if (styleUrl && styleFileName) {
-            var stylePath = HTML_DIR + styleUrl;
+            var stylePath = SCSS_DIR + styleUrl;
             var createfilePath = startPath+'/'+styleFileName;
             process.stdout.write(`GET ${stylePath}`);
             console.log(` ==> CREATE ${createfilePath}`);

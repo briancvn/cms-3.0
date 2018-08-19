@@ -5,29 +5,46 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+const fs = require('fs');
+const lodash = require('lodash');
 
-var extractPlugin = new ExtractTextPlugin({
-    filename: 'main.css',
-    allChunks: true
- });
+const STYLE_DIR = 'src/Styles';
+const EXCLUDE_STYLES = ['external.scss', 'variable.scss'];
+
+function extendEntry(entry, startPath) {
+    fs.readdirSync(startPath).forEach(name => {
+        if (!lodash.includes(EXCLUDE_STYLES, name)) {
+            var filename = path.join(startPath, name);
+            var stat = fs.lstatSync(filename);
+            if (stat.isDirectory()){
+                extendEntry(entry, filename);
+            } else {
+                var styleSourcePath = `./${startPath}/${name}`.replace(/\\/g, '/');
+                var match = styleSourcePath.match(/^.\/src\/(.*).scss$/);
+                entry[match[1]] = styleSourcePath;
+            }
+        }
+    })
+    return entry;
+}
 
 module.exports = {
     mode: "development",
-    entry: {
+    entry: extendEntry({
         polyfills: './src/polyfills.ts',
         app: './src/main.ts',
+        external: './src/Styles/external.scss',
         main: './src/main.scss'
-    },
+    }, STYLE_DIR),
     resolve: {
-        extensions: ['.ts','.js','.json','.scss'],
+        extensions: ['.ts','.js','.json'],
         unsafeCache: true
     },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
-    devtool: 'inline-source-map',
+    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -39,26 +56,8 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                use: extractPlugin.extract({  
-                    fallback: "style-loader",
-                    use: [
-                        { loader: 'css-loader', options: { importLoaders: 2, sourceMap: true }},
-                        { loader: 'postcss-loader', options: { config: { path: './postcss.config.js' }, sourceMap: true }},
-                        { loader: 'sass-loader', options: { sourceMap: true }}
-                    ]
-                }) 
-            },
-            {
                 test: /\.scss$/,
-                use: extractPlugin.extract({  
-                    fallback: "style-loader",
-                    use: [
-                        { loader: 'css-loader', options: { importLoaders: 2, sourceMap: true }},
-                        { loader: 'postcss-loader', options: { sourceMap: true, plugins: () => [autoprefixer] }},
-                        { loader: 'sass-loader', options: { sourceMap: true }}
-                    ]
-                }) 
+                use: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif|ico)$/,
@@ -80,7 +79,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin("[name].scss"),
+        new ExtractTextPlugin('[name].css'),
         new ForkTsCheckerWebpackPlugin(),
         new ForkTsCheckerNotifierWebpackPlugin({ excludeWarnings: true }),
         new HtmlWebpackPlugin({
@@ -97,11 +96,11 @@ module.exports = {
             ENVIRONMENT_VARIABLE_REPLACED_BY_WEBPACK_IS_DEBUG_MODE: true
         }),
         new webpack.DefinePlugin({ 'process.browser': true }),
-        extractPlugin
+        new webpack.HotModuleReplacementPlugin()
     ],
     devServer: {
         port: 4200,
-        disableHostCheck: true,
+        hot: true,
         proxy: {
             '/Api/**': {
                 target: "http://dev.cms.com/cms",
@@ -118,7 +117,7 @@ module.exports = {
                 secure: false,
                 changeOrigin: true,
                 bypass: (req, res, proxyOptions) => {
-                    return `/Assets${req.url.toString()}`;
+                    return `${req.url.toString()}`.replace('.scss', '.css');
                 }
             }
         }
