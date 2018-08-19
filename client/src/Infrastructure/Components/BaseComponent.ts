@@ -1,7 +1,7 @@
 import { HostBinding } from '@angular/core';
 import { kebabCase } from 'lodash';
 
-import { Subscribable } from '../Services/Subscribable';
+import { Subscribable } from '../Common/Subscribable';
 import { CommonConstants } from '../Constants/CommonConstants';
 
 export abstract class BaseComponent extends Subscribable {

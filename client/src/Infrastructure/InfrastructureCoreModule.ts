@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
 
 import { INFRASTRUCTURE_COMPONENTS } from './Components';
 import { INFRASTRUCTURE_MODALS_COMPONENTS } from './Components/Modals';
-import { INFRASTRUCTURE_DIRECTIVES } from './Directives';
+import { INFRASTRUCTURE_DIRECTIVE_MODULES, INFRASTRUCTURE_DIRECTIVES } from './Directives';
 import { INFRASTRUCTURE_PIPES } from './Pipes';
 
 const MATERIAL_CORE_MODULES = [
@@ -43,6 +43,7 @@ export const INFRASTRUCTURE_COMPONENTS_DIRECTIVES: Type<any>[] = [
         RouterModule,
         HttpClientModule,
         FormsModule,
+        ...INFRASTRUCTURE_DIRECTIVE_MODULES,
         ...INFRASTRUCTURE_EXTERNAL_MODULES
     ],
     declarations: [

@@ -1,6 +1,6 @@
+import { Subscribable } from '../Common/Subscribable';
 import { ISettings } from '../Interfaces/ISettings';
 import { Authenticate } from '../Models/Authenticate';
-import { Subscribable } from './Subscribable';
 
 declare var settings: ISettings;
 declare var userContext: Authenticate;
