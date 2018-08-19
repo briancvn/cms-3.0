@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 export type BasicSwitchValue = string | number | boolean;
 
