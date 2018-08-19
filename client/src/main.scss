@@ -1,1 +1,4 @@
-@import './Styles/variable';
+@import 'color';
+body {
+    background: $green;
+}

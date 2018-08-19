@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ForkTsCheckerNotifierWebpackPlugin = require('fork-ts-checker-notifier-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 const fs = require('fs');
 const lodash = require('lodash');
 
@@ -57,7 +58,14 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                use: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+                use: ExtractTextPlugin.extract({  
+                    fallback: "style-loader",
+                    use: [
+                        { loader: 'css-loader', options: { sourceMap: true  }},
+                        { loader: 'postcss-loader', options: { sourceMap: true, plugins: () => [autoprefixer] }},
+                        { loader: 'sass-loader', options: { sourceMap: true, includePaths: ['./src/Styles'] }}
+                    ]
+                }) 
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif|ico)$/,
